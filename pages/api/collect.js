@@ -29,9 +29,9 @@ export default async (req, res) => {
   } = req;
 
   if (type === 'pageview') {
-    const { url, referrer } = payload;
+    const { url, referrer, metadata } = payload;
 
-    await savePageView(website_id, session_id, url, referrer);
+    await savePageView(website_id, session_id, url, referrer, metadata);
   } else if (type === 'event') {
     const { url, event_type, event_value } = payload;
 

@@ -23,6 +23,8 @@ import { removeTrailingSlash } from '../lib/url';
   const dnt = attr('data-do-not-track');
   const useCache = attr('data-cache');
   const domains = attr('data-domains');
+  const metadata_website_id = attr('data-metadata-website-id');
+  const metadata_organization_id = attr('data-metadata-organization-id');
 
   const disableTracking =
     localStorage.getItem('umami.disabled') ||
@@ -57,7 +59,7 @@ import { removeTrailingSlash } from '../lib/url';
     req.send(JSON.stringify(data));
   };
 
-  const collect = (type, params, uuid) => {
+  const collect = (type, params, uuid, metadata) => {
     if (disableTracking) return;
 
     const key = 'umami.cache';
@@ -67,6 +69,11 @@ import { removeTrailingSlash } from '../lib/url';
       hostname,
       screen,
       language,
+      metadata: {
+        metadata_website_id,
+        metadata_organization_id,
+        ...metadata,
+      },
       cache: useCache && sessionStorage.getItem(key),
     };
 
@@ -86,7 +93,7 @@ import { removeTrailingSlash } from '../lib/url';
     );
   };
 
-  const trackView = (url = currentUrl, referrer = currentRef, uuid = website) =>
+  const trackView = (url = currentUrl, referrer = currentRef, uuid = website, metadata) =>
     collect(
       'pageview',
       {
@@ -94,6 +101,7 @@ import { removeTrailingSlash } from '../lib/url';
         referrer,
       },
       uuid,
+      metadata,
     );
 
   const trackEvent = (event_value, event_type = 'custom', url = currentUrl, uuid = website) =>
