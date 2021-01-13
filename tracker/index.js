@@ -26,7 +26,6 @@ import { removeTrailingSlash } from '../lib/url';
   const metadata_website_id = attr('data-metadata-website-id');
   const metadata_organization_id = attr('data-metadata-organization-id');
   const metadata_event_id = attr('data-metadata-event-id');
-
   const disableTracking =
     localStorage.getItem('umami.disabled') ||
     (dnt && doNotTrack()) ||
