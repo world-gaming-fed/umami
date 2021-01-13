@@ -8,7 +8,7 @@ datasource db {
 }
 
 model account {
-  user_id    Int       @default(autoincrement()) @id
+  user_id    Int       @id @default(autoincrement())
   username   String    @unique
   password   String
   is_admin   Boolean   @default(false)
@@ -18,7 +18,7 @@ model account {
 }
 
 model event {
-  event_id    Int       @default(autoincrement()) @id
+  event_id    Int       @id @default(autoincrement())
   website_id  Int
   session_id  Int
   created_at  DateTime? @default(now())
@@ -34,22 +34,33 @@ model event {
 }
 
 model pageview {
-  view_id    Int       @default(autoincrement()) @id
-  website_id Int
-  session_id Int
-  created_at DateTime? @default(now())
-  url        String
-  referrer   String?
-  session    session   @relation(fields: [session_id], references: [session_id])
-  website    website   @relation(fields: [website_id], references: [website_id])
+  view_id                  Int       @id @default(autoincrement())
+  website_id               Int
+  session_id               Int
+  created_at               DateTime? @default(now())
+  url                      String
+  referrer                 String?
+  metadata_website_id      String?
+  metadata_organization_id String?
+  metadata_tournament_id   String?
+  metadata_event_id        String?
+  metadata_post_id         String?
+  session                  session   @relation(fields: [session_id], references: [session_id])
+  website                  website   @relation(fields: [website_id], references: [website_id])
+
 
   @@index([created_at], name: "pageview_created_at_idx")
   @@index([session_id], name: "pageview_session_id_idx")
   @@index([website_id], name: "pageview_website_id_idx")
+  @@index([metadata_website_id], name: "pageview_metadata_website_id_idx")
+  @@index([metadata_organization_id], name: "pageview_metadata_organization_id_idx")
+  @@index([metadata_tournament_id], name: "pageview_metadata_tournament_id_idx")
+  @@index([metadata_post_id], name: "pageview_metadata_post_id_idx")
+  @@index([metadata_event_id], name: "pageview_metadata_event_id_idx")
 }
 
 model session {
-  session_id   Int        @default(autoincrement()) @id
+  session_id   Int        @id @default(autoincrement())
   session_uuid String     @unique
   website_id   Int
   created_at   DateTime?  @default(now())
@@ -69,7 +80,7 @@ model session {
 }
 
 model website {
-  website_id   Int        @default(autoincrement()) @id
+  website_id   Int        @id @default(autoincrement())
   website_uuid String     @unique
   name         String
   created_at   DateTime?  @default(now())

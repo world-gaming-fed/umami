@@ -1,0 +1,15 @@
+---
+version: "3"
+services:
+  db:
+    image: postgres:12-alpine
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_DB: umami
+      POSTGRES_USER: umami
+      POSTGRES_PASSWORD: umami
+    volumes:
+      - db-data:/var/lib/postgresql/data
+volumes:
+  db-data:
