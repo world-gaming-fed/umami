@@ -2,6 +2,9 @@
 
 Umami is a simple, fast, website analytics alternative to Google Analytics.
 
+## WGF documentation
+To preserve an easy rebase from the fork we just modify this section. WGF documentation si [here](./wgf-readme.md)
+
 ## Getting started
 
 A detailed getting started guide can be found at [https://umami.is/docs/](https://umami.is/docs/)
@@ -70,7 +73,7 @@ npm run build
 npm start
 ```
 
-By default this will launch the application on `http://localhost:3000`. You will need to either 
+By default this will launch the application on `http://localhost:3000`. You will need to either
 [proxy](https://docs.nginx.com/nginx/admin-guide/web-server/reverse-proxy/) requests from your web server
 or change the [port](https://nextjs.org/docs/api-reference/cli#production) to serve the application directly.
 
